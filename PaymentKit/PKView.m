@@ -96,8 +96,6 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
 
         [self addSubview:self.innerView];
         [self addSubview:self.placeholderView];
-        
-        [self stateCardNumber];
     }
 }
 
