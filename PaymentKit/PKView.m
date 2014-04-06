@@ -119,7 +119,9 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     self.cardNumberField = [[PKTextField alloc] initWithFrame:CGRectMake(12, 0, 170, 20)];
     self.cardNumberField.delegate = self;
     self.cardNumberField.placeholder = [self.class localizedStringWithKey:@"placeholder.card_number" defaultValue:@"1234 5678 9012 3456"];
-    self.cardNumberField.keyboardType = UIKeyboardTypeNumberPad;
+    self.cardNumberField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.cardNumberField.keyboardAppearance = self.keyboardAppearance;
+    self.cardNumberField.returnKeyType = UIReturnKeyDone;
     self.cardNumberField.textColor = self.textColor;
     self.cardNumberField.font = self.font;
 
@@ -131,7 +133,9 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     self.cardExpiryField = [[PKTextField alloc] initWithFrame:CGRectMake(kPKViewCardExpiryFieldStartX, 0, 60, 20)];
     self.cardExpiryField.delegate = self;
     self.cardExpiryField.placeholder = [self.class localizedStringWithKey:@"placeholder.card_expiry" defaultValue:@"MM/YY"];
-    self.cardExpiryField.keyboardType = UIKeyboardTypeNumberPad;
+    self.cardExpiryField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.cardExpiryField.keyboardAppearance = self.keyboardAppearance;
+    self.cardExpiryField.returnKeyType = UIReturnKeyDone;
     self.cardExpiryField.textColor = self.textColor;
     self.cardExpiryField.font = self.font;
 
@@ -143,7 +147,9 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     self.cardCVCField = [[PKTextField alloc] initWithFrame:CGRectMake(kPKViewCardCVCFieldStartX, 0, 55, 20)];
     self.cardCVCField.delegate = self;
     self.cardCVCField.placeholder = [self.class localizedStringWithKey:@"placeholder.card_cvc" defaultValue:@"CVC"];
-    self.cardCVCField.keyboardType = UIKeyboardTypeNumberPad;
+    self.cardCVCField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.cardCVCField.keyboardAppearance = self.keyboardAppearance;
+    self.cardCVCField.returnKeyType = UIReturnKeyDone;
     self.cardCVCField.textColor = self.textColor;
     self.cardCVCField.font = self.font;
 

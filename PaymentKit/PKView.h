@@ -42,5 +42,6 @@
 @property (readonly) PKCard *card;
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
 @end
