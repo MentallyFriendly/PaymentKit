@@ -431,15 +431,21 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
 
     [self setPlaceholderToCardType];
 
+    BOOL isValid = NO;
     if ([cardNumber isValid]) {
         [self textFieldIsValid:self.cardNumberField];
         [self stateMeta];
+        isValid = YES;
 
     } else if ([cardNumber isValidLength] && ![cardNumber isValidLuhn]) {
         [self textFieldIsInvalid:self.cardNumberField withErrors:YES];
 
     } else if (![cardNumber isValidLength]) {
         [self textFieldIsInvalid:self.cardNumberField withErrors:NO];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(paymentView:field:isValid:)]) {
+        [self.delegate paymentView:self field:PKViewCardNumberField isValid:isValid];
     }
 
     return NO;
@@ -462,14 +468,20 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
         self.cardExpiryField.text = [cardExpiry formattedString];
     }
 
+    BOOL isValid = NO;
     if ([cardExpiry isValid]) {
         [self textFieldIsValid:self.cardExpiryField];
         [self stateCardCVC];
+        isValid = YES;
 
     } else if ([cardExpiry isValidLength] && ![cardExpiry isValidDate]) {
         [self textFieldIsInvalid:self.cardExpiryField withErrors:YES];
     } else if (![cardExpiry isValidLength]) {
         [self textFieldIsInvalid:self.cardExpiryField withErrors:NO];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(paymentView:field:isValid:)]) {
+        [self.delegate paymentView:self field:PKViewExpiryDateField isValid:isValid];
     }
 
     return NO;
@@ -488,15 +500,25 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     // Strip non-digits
     self.cardCVCField.text = [cardCVC string];
 
+    BOOL isValid = NO;
     if ([cardCVC isValidWithType:cardType]) {
         [self textFieldIsValid:self.cardCVCField];
+        isValid = YES;
     } else {
         [self textFieldIsInvalid:self.cardCVCField withErrors:NO];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(paymentView:field:isValid:)]) {
+        [self.delegate paymentView:self field:PKViewCVCField isValid:isValid];
     }
 
     return NO;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField endEditing:YES];
+    return NO;
+}
 
 #pragma mark - Validations
 
