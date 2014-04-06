@@ -37,7 +37,10 @@
 @property IBOutlet PKTextField *cardExpiryField;
 @property IBOutlet PKTextField *cardCVCField;
 @property IBOutlet UIImageView *placeholderView;
+
 @property (nonatomic, weak) id <PKViewDelegate> delegate;
 @property (readonly) PKCard *card;
+@property (nonatomic, strong) UIFont *font;
+@property (nonatomic, strong) UIColor *textColor;
 
 @end

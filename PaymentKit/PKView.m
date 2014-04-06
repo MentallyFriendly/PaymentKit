@@ -6,11 +6,6 @@
 //  Copyright (c) 2013 Stripe. All rights reserved.
 //
 
-#define RGB(r,g,b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0f]
-#define DarkGreyColor RGB(0,0,0)
-#define RedColor RGB(253,0,17)
-#define DefaultBoldFont [UIFont boldSystemFontOfSize:17]
-
 #define kPKViewPlaceholderViewAnimationDuration 0.25
 
 #define kPKViewCardExpiryFieldStartX 84 + 200
@@ -81,6 +76,9 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
 
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 290, 46);
     self.backgroundColor = [UIColor clearColor];
+    self.font = [UIFont boldSystemFontOfSize:17];
+    self.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+}
 
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     backgroundImageView.image = [[UIImage imageNamed:@"textfield"]
@@ -113,7 +111,6 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     [self stateCardNumber];
 }
 
-
 - (void)setupPlaceholderView
 {
     self.placeholderView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 13, 32, 20)];
@@ -132,8 +129,8 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     self.cardNumberField.delegate = self;
     self.cardNumberField.placeholder = [self.class localizedStringWithKey:@"placeholder.card_number" defaultValue:@"1234 5678 9012 3456"];
     self.cardNumberField.keyboardType = UIKeyboardTypeNumberPad;
-    self.cardNumberField.textColor = DarkGreyColor;
-    self.cardNumberField.font = DefaultBoldFont;
+    self.cardNumberField.textColor = self.textColor;
+    self.cardNumberField.font = self.font;
 
     [self.cardNumberField.layer setMasksToBounds:YES];
 }
@@ -144,8 +141,8 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     self.cardExpiryField.delegate = self;
     self.cardExpiryField.placeholder = [self.class localizedStringWithKey:@"placeholder.card_expiry" defaultValue:@"MM/YY"];
     self.cardExpiryField.keyboardType = UIKeyboardTypeNumberPad;
-    self.cardExpiryField.textColor = DarkGreyColor;
-    self.cardExpiryField.font = DefaultBoldFont;
+    self.cardExpiryField.textColor = self.textColor;
+    self.cardExpiryField.font = self.font;
 
     [self.cardExpiryField.layer setMasksToBounds:YES];
 }
@@ -156,8 +153,8 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     self.cardCVCField.delegate = self;
     self.cardCVCField.placeholder = [self.class localizedStringWithKey:@"placeholder.card_cvc" defaultValue:@"CVC"];
     self.cardCVCField.keyboardType = UIKeyboardTypeNumberPad;
-    self.cardCVCField.textColor = DarkGreyColor;
-    self.cardCVCField.font = DefaultBoldFont;
+    self.cardCVCField.textColor = self.textColor;
+    self.cardCVCField.font = self.font;
 
     [self.cardCVCField.layer setMasksToBounds:YES];
 }
@@ -244,16 +241,16 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
     if ([self.cardNumber.formattedString respondsToSelector:@selector(sizeWithAttributes:)]) {
-        NSDictionary *attributes = @{NSFontAttributeName: DefaultBoldFont};
+        NSDictionary *attributes = @{NSFontAttributeName: self.font};
 
         cardNumberSize = [self.cardNumber.formattedString sizeWithAttributes:attributes];
         lastGroupSize = [self.cardNumber.lastGroup sizeWithAttributes:attributes];
     } else {
-        cardNumberSize = [self.cardNumber.formattedString sizeWithFont:DefaultBoldFont];
-        lastGroupSize = [self.cardNumber.lastGroup sizeWithFont:DefaultBoldFont];
+        cardNumberSize = [self.cardNumber.formattedString sizeWithFont:self.font];
+        lastGroupSize = [self.cardNumber.lastGroup sizeWithFont:self.font];
     }
 #else
-    NSDictionary *attributes = @{NSFontAttributeName: DefaultBoldFont};
+    NSDictionary *attributes = @{NSFontAttributeName: self.font ? self.font : DefaultBoldFont};
 
     cardNumberSize = [self.cardNumber.formattedString sizeWithAttributes:attributes];
     lastGroupSize = [self.cardNumber.lastGroup sizeWithAttributes:attributes];
@@ -528,16 +525,16 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
 
 - (void)textFieldIsValid:(UITextField *)textField
 {
-    textField.textColor = DarkGreyColor;
+    textField.textColor = self.textColor;
     [self checkValid];
 }
 
 - (void)textFieldIsInvalid:(UITextField *)textField withErrors:(BOOL)errors
 {
     if (errors) {
-        textField.textColor = RedColor;
+        textField.textColor = [UIColor colorWithRed:253.0f/255.0f green:0 blue:17.0f/255.0f alpha:1];
     } else {
-        textField.textColor = DarkGreyColor;
+        textField.textColor = self.textColor;
     }
 
     [self checkValid];
