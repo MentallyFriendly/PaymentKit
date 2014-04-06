@@ -103,8 +103,9 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
 
 - (void)setupPlaceholderView
 {
-    self.placeholderView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 13, 32, 20)];
+    self.placeholderView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 13, 37, 20)];
     self.placeholderView.backgroundColor = [UIColor clearColor];
+    self.placeholderView.contentMode = UIViewContentModeRight;
     self.placeholderView.image = [UIImage imageNamed:@"placeholder"];
 
     CALayer *clip = [CALayer layer];
