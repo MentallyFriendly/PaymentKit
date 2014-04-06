@@ -80,23 +80,25 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     self.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
 
-    self.innerView = [[UIView alloc] initWithFrame:CGRectMake(40, 12, self.frame.size.width - 40, 20)];
-    self.innerView.clipsToBounds = YES;
+    if (nil == self.innerView) {
+        self.innerView = [[UIView alloc] initWithFrame:CGRectMake(40, 12, self.frame.size.width - 40, 20)];
+        self.innerView.clipsToBounds = YES;
 
-    [self setupPlaceholderView];
-    [self setupCardNumberField];
-    [self setupCardExpiryField];
-    [self setupCardCVCField];
+        [self setupPlaceholderView];
+        [self setupCardNumberField];
+        [self setupCardExpiryField];
+        [self setupCardCVCField];
 
-    [self.innerView addSubview:self.cardNumberField];
+        [self.innerView addSubview:self.cardNumberField];
 
-
-
-    [self addSubview:self.innerView];
-    [self addSubview:self.placeholderView];
-
-    [self stateCardNumber];
+        [self addSubview:self.innerView];
+        [self addSubview:self.placeholderView];
+        
+        [self stateCardNumber];
+    }
 }
 
 - (void)setupPlaceholderView
