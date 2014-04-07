@@ -61,6 +61,13 @@
     return self;
 }
 
+- (NSString *)string {
+    if (_year.length > 0)
+        return [NSString stringWithFormat:@"%@%@", _month, _year];
+
+    return [NSString stringWithFormat:@"%@", _month];
+}
+
 - (NSString *)formattedString
 {
     if (_year.length > 0)
