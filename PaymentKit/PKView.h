@@ -16,7 +16,7 @@
 
 @class PKView, PKTextField;
 
-typedef NS_ENUM(NSUInteger, PKViewField) {
+typedef NS_ENUM(NSInteger, PKViewFieldType) {
     PKViewCardNumberField,
     PKViewExpiryDateField,
     PKViewCVCField,
@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, PKViewField) {
 @protocol PKViewDelegate <NSObject>
 @optional
 - (void)paymentView:(PKView *)paymentView withCard:(PKCard *)card isValid:(BOOL)valid;
-- (void)paymentView:(PKView *)paymentView field:(PKViewField)field isValid:(BOOL)valid;
+- (void)paymentFieldDidBecomeActive:(PKTextField *)paymentField;
 @end
 
 @interface PKView : UIView

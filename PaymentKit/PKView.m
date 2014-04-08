@@ -392,6 +392,10 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     if ([textField isEqual:self.cardNumberField] && !_isInitialState) {
         [self stateCardNumber];
     }
+
+    if ([self.delegate respondsToSelector:@selector(paymentFieldDidBecomeActive:)]) {
+        [self.delegate paymentFieldDidBecomeActive:(PKTextField *)textField];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)replacementString
@@ -453,10 +457,6 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
         [self textFieldIsInvalid:self.cardNumberField withErrors:NO];
     }
 
-    if ([self.delegate respondsToSelector:@selector(paymentView:field:isValid:)]) {
-        [self.delegate paymentView:self field:PKViewCardNumberField isValid:isValid];
-    }
-
     return NO;
 }
 
@@ -489,10 +489,6 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
         [self textFieldIsInvalid:self.cardExpiryField withErrors:NO];
     }
 
-    if ([self.delegate respondsToSelector:@selector(paymentView:field:isValid:)]) {
-        [self.delegate paymentView:self field:PKViewExpiryDateField isValid:isValid];
-    }
-
     return NO;
 }
 
@@ -515,10 +511,6 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
         isValid = YES;
     } else {
         [self textFieldIsInvalid:self.cardCVCField withErrors:NO];
-    }
-
-    if ([self.delegate respondsToSelector:@selector(paymentView:field:isValid:)]) {
-        [self.delegate paymentView:self field:PKViewCVCField isValid:isValid];
     }
 
     return NO;
