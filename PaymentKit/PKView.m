@@ -286,8 +286,13 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
 
 - (BOOL)isValid
 {
-    return [self.cardNumber isValid] && [self.cardExpiry isValid] &&
-            [self.cardCVC isValidWithType:self.cardNumber.cardType];
+#ifndef RELEASE
+    return ([self.cardNumber isValid] || [self.allowedCardNumbers containsObject:self.cardNumber.string]) &&
+#else
+    return [self.cardNumber isValid] &&
+#endif
+    [self.cardExpiry isValid] &&
+    [self.cardCVC isValidWithType:self.cardNumber.cardType];
 }
 
 - (PKCard *)card
@@ -432,7 +437,11 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
     [self setPlaceholderToCardType];
 
     BOOL isValid = NO;
+#ifndef RELEASE
+    if ([cardNumber isValid] || [self.allowedCardNumbers containsObject:[cardNumber string]]) {
+#else
     if ([cardNumber isValid]) {
+#endif
         [self textFieldIsValid:self.cardNumberField];
         [self stateMeta];
         isValid = YES;

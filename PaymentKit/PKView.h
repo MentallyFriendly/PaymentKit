@@ -51,4 +51,8 @@ typedef NS_ENUM(NSUInteger, PKViewField) {
 @property (nonatomic, strong) UIColor *textColor;
 @property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
+#ifndef RELEASE
+@property (nonatomic, copy) NSSet *allowedCardNumbers;
+#endif
+
 @end
