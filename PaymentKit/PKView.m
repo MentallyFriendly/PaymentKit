@@ -400,6 +400,11 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)replacementString
 {
+    // this is a big hack and should not be here!
+    if ([self.delegate respondsToSelector:@selector(paymentFieldDidBecomeActive:)]) {
+        [self.delegate paymentFieldDidBecomeActive:(PKTextField *)textField];
+    }
+
     if ([textField isEqual:self.cardNumberField]) {
         return [self cardNumberFieldShouldChangeCharactersInRange:range replacementString:replacementString];
     }
