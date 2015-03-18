@@ -245,7 +245,7 @@ static NSString *const kPKOldLocalizedStringsTableName = @"STPaymentLocalizable"
         lastGroupSize = [self.cardNumber.lastGroup sizeWithFont:self.font];
     }
 #else
-    NSDictionary *attributes = @{NSFontAttributeName: self.font ? self.font : DefaultBoldFont};
+    NSDictionary *attributes = @{NSFontAttributeName: self.font ? self.font : [UIFont boldSystemFontOfSize:17]};
 
     cardNumberSize = [self.cardNumber.formattedString sizeWithAttributes:attributes];
     lastGroupSize = [self.cardNumber.lastGroup sizeWithAttributes:attributes];
